@@ -234,7 +234,6 @@ function ButtonSelected(button)
             end
             TriggerServerEvent("GTASuperette:RecevoirItem", quantityItems, button.idItem, button.nameItem, button.prixItem)
             CloseCreator()
-
         elseif btn == "Eau ~g~ 5$" then
             local quantityItems = KeyboardInput("", "", 2)
             if tonumber(quantityItems) == nil then

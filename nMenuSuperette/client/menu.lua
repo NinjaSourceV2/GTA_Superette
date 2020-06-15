@@ -1,38 +1,5 @@
 --||@SuperCoolNinja.||--
 
---> Event : 
-RegisterNetEvent("GTASuperette:Achat")
-AddEventHandler("GTASuperette:Achat",  function(quantityItems, idBtn, nameItem)
-    TriggerEvent("player:receiveItem", idBtn, quantityItems)
-
-    for shop = 1, #Config.Locations do
-        local sPed = Config.Locations[shop]["sPed"]
-        PlayAmbientSpeech2(sPed["entity"], "GENERIC_THANKS", "SPEECH_PARAMS_FORCE_SHOUTED") --> Sert a faire parler le ped plus l'animer.
-    end
-
-    PlaySoundFrontend(-1, "Hack_Success", "DLC_HEIST_BIOLAB_PREP_HACKING_SOUNDS", false)
-    exports.nCoreGTA:Ninja_Core_PedsText("~b~Vendeur ~w~: ~g~Merci !", 1000)
-end)
-
-RegisterNetEvent("GTASuperette:AchatFail")
-AddEventHandler("GTASuperette:AchatFail",  function(quantityItems, idBtn, nameItem)
-    for shop = 1, #Config.Locations do
-        local sPed = Config.Locations[shop]["sPed"]
-        PlayAmbientSpeech2(sPed["entity"], "GENERIC_BYE", "SPEECH_PARAMS_FORCE_SHOUTED") --> Sert a faire parler le ped plus l'animer.
-    end
-    
-    PlaySoundFrontend(-1, "Hack_Failed", "DLC_HEIST_BIOLAB_PREP_HACKING_SOUNDS", false)
-    exports.nCoreGTA:Ninja_Core_PedsText("~b~Vendeur ~w~: ~r~A bientôt !", 1000)
-end)
-
-
-local Ninja_Core__DisplayHelpAlert = function(msg)
-	BeginTextCommandDisplayHelp("STRING");  
-    AddTextComponentSubstringPlayerName(msg);  
-    EndTextCommandDisplayHelp(0, 0, 1, -1);
-end
-
-
 --> MENU :
 local superette = {
 	opened = false,
@@ -62,44 +29,6 @@ local superette = {
     	},
   	}
 }
-
-function dump(o)
-   if type(o) == 'table' then
-      local s = '{ '
-      for k,v in pairs(o) do
-         if type(k) ~= 'number' then k = '"'..k..'"' end
-         s = s .. '['..k..'] = ' .. dump(v) .. ','
-      end
-      return s .. '} '
-   else
-      return tostring(o)
-   end
-end
-
-function LocalPed()
-	return GetPlayerPed(-1)
-end
-
-local function KeyboardInput(TextEntry, ExampleText, MaxStringLenght)
-	AddTextEntry('FMMC_KEY_TIP1', TextEntry)
-	DisplayOnscreenKeyboard(1, "FMMC_KEY_TIP1", "", ExampleText, "", "", "", MaxStringLenght)
-	blockinput = true
-
-	while UpdateOnscreenKeyboard() ~= 1 and UpdateOnscreenKeyboard() ~= 2 do
-		Citizen.Wait(0)
-	end
-		
-	if UpdateOnscreenKeyboard() ~= 2 then
-		local result = GetOnscreenKeyboardResult()
-		Citizen.Wait(500)
-		blockinput = false
-		return result --Returns the result
-	else
-		Citizen.Wait(500)
-		blockinput = false
-		return nil
-	end
-end
 
 function OpenCreator()
 	boughtcar = false
@@ -210,7 +139,6 @@ Citizen.CreateThread(function()
            local dist = GetDistanceBetweenCoords(GetEntityCoords(PlayerPedId()), sPed["x"], sPed["y"], sPed["z"], true)
 
            if dist <= 2.0 then
-               
                 if GetLastInputMethod(0) then
                    Ninja_Core__DisplayHelpAlert("~INPUT_TALK~ pour ~b~intéragir ~w~ avec le ~g~vendeur")
                else
@@ -218,7 +146,6 @@ Citizen.CreateThread(function()
                end
            
                if (IsControlJustReleased(0, 54) or IsControlJustReleased(0, 175)) then 
-                   --open menu :
                     if not superette.opened then
                         exports.nCoreGTA:Ninja_Core_PedsText("~b~Vendeur ~w~: ~h~Hey !", 500)
                         PlayAmbientSpeech2(sPed["entity"], "GENERIC_HI", "SPEECH_PARAMS_FORCE_SHOUTED") --> Sert a faire parler le ped plus l'animer.
@@ -228,6 +155,7 @@ Citizen.CreateThread(function()
                end
 
                if superette.opened then
+                    DisableControlAction(0, 140, true) --> DESACTIVER LA TOUCHE POUR PUNCH
                     DisableControlAction(0, 172,true) --DESACTIVE CONTROLL HAUT
                     local ped = LocalPed()
                     local menu = superette.menu[superette.currentmenu]
@@ -254,9 +182,6 @@ Citizen.CreateThread(function()
                 if superette.opened then
                     if IsControlJustPressed(1,202) then
                         Back()
-                    end
-                    if IsControlJustReleased(1,202) then
-                        backlock = false
                     end
                     if IsControlJustPressed(1,188) then
                         if superette.selectedbutton > 1 then
@@ -288,7 +213,6 @@ function ButtonSelected(button)
     local btn = button.name
 
     if this == "main" then
-        --- ITEM -> PAIN :   
         if btn == "Pain ~g~ 5$" then
             local quantityItems = KeyboardInput("", "", 2)
             if tonumber(quantityItems) == nil then
@@ -300,7 +224,7 @@ function ButtonSelected(button)
                 return nil
             end
 
-            if tonumber(quantityItems) >= 50 then
+            if tonumber(quantityItems) >= 20 then
                 exports.nCoreGTA:nNotificationMain({
                     text = "Somme beaucoup trop grande !",
                     type = 'basGauche',
@@ -308,11 +232,9 @@ function ButtonSelected(button)
                 })
                 return nil
             end
-
             TriggerServerEvent("GTASuperette:RecevoirItem", quantityItems, button.idItem, button.nameItem, button.prixItem)
             CloseCreator()
 
-        --- ITEM -> EAU :    
         elseif btn == "Eau ~g~ 5$" then
             local quantityItems = KeyboardInput("", "", 2)
             if tonumber(quantityItems) == nil then
@@ -324,7 +246,7 @@ function ButtonSelected(button)
                 return nil
             end
 
-            if tonumber(quantityItems) >= 50 then
+            if tonumber(quantityItems) >= 20 then
                 exports.nCoreGTA:nNotificationMain({
                     text = "Somme beaucoup trop grande !",
                     type = 'basGauche',
@@ -332,125 +254,13 @@ function ButtonSelected(button)
                 })
                 return nil
             end
-
             TriggerServerEvent("GTASuperette:RecevoirItem", quantityItems, button.idItem,  button.nameItem, button.prixItem)
-            CloseCreator()
-        --- ITEM -> PHONE :   
-        elseif btn == "Téléphone ~g~ 5$" then
-            local quantityItems = KeyboardInput("", "", 1)
-            if tonumber(quantityItems) == nil then
-                exports.nCoreGTA:nNotificationMain({
-                    text = "Veuillez inserer un nombre correct !",
-                    type = 'basGauche',
-                    nTimeNotif = 6000,
-                })
-                return nil
-            end
-
-            if tonumber(quantityItems) >= 3 then
-                exports.nCoreGTA:nNotificationMain({
-                    text = "Somme beaucoup trop grande !",
-                    type = 'basGauche',
-                    nTimeNotif = 6000,
-                })
-                return nil
-            end
-            TriggerServerEvent("GTASuperette:RecevoirItem", quantityItems, button.idItem, button.nameItem, button.prixItem)
-            CloseCreator()
-
-        --[[elseif btn == "Arrosoir plantation ~g~ 5$" then
-            local quantityItems = KeyboardInput("", "", 1)
-            if tonumber(quantityItems) == nil then
-                exports.nCoreGTA:nNotificationMain({
-                    text = "Veuillez inserer un nombre correct !",
-                    type = 'basGauche',
-                    nTimeNotif = 6000,
-                })
-                return nil
-            end
-
-            if tonumber(quantityItems) >= 11 then
-                exports.nCoreGTA:nNotificationMain({
-                    text = "Somme beaucoup trop grande !",
-                    type = 'basGauche',
-                    nTimeNotif = 6000,
-                })
-                return nil
-            end
-            TriggerServerEvent("GTASuperette:RecevoirItem", quantityItems, button.idItem, button.nameItem, button.prixItem)
-            CloseCreator()
-        elseif btn == "Engrais plantation ~g~ 5$" then
-            local quantityItems = KeyboardInput("", "", 1)
-            if tonumber(quantityItems) == nil then
-                exports.nCoreGTA:nNotificationMain({
-                    text = "Veuillez inserer un nombre correct !",
-                    type = 'basGauche',
-                    nTimeNotif = 6000,
-                })
-                return nil
-            end
-
-            if tonumber(quantityItems) >= 21 then
-                exports.nCoreGTA:nNotificationMain({
-                    text = "Somme beaucoup trop grande !",
-                    type = 'basGauche',
-                    nTimeNotif = 6000,
-                })
-                return nil
-            end
-            TriggerServerEvent("GTASuperette:RecevoirItem", quantityItems, button.idItem, button.nameItem, button.prixItem)
-            CloseCreator()
-        elseif btn == "Graine de cannabis ~g~ 5$" then
-            local quantityItems = KeyboardInput("", "", 1)
-            if tonumber(quantityItems) == nil then
-                exports.nCoreGTA:nNotificationMain({
-                    text = "Veuillez inserer un nombre correct !",
-                    type = 'basGauche',
-                    nTimeNotif = 6000,
-                })
-                return nil
-            end
-
-            if tonumber(quantityItems) >= 51 then
-                exports.nCoreGTA:nNotificationMain({
-                    text = "Somme beaucoup trop grande !",
-                    type = 'basGauche',
-                    nTimeNotif = 6000,
-                })
-                return nil
-            end
-            TriggerServerEvent("GTASuperette:RecevoirItem", quantityItems, button.idItem, button.nameItem, button.prixItem)
-            CloseCreator()]]
-        elseif btn == "Gps ~g~ 5$" then 
-            local quantityItems = KeyboardInput("", "", 1)
-            if tonumber(quantityItems) == nil then
-                exports.nCoreGTA:nNotificationMain({
-                    text = "Veuillez inserer un nombre correct !",
-                    type = 'basGauche',
-                    nTimeNotif = 6000,
-                })
-                return nil
-            end
-
-            if tonumber(quantityItems) > 1 then
-                exports.nCoreGTA:nNotificationMain({
-                    text = "Somme beaucoup trop grande !",
-                    type = 'basGauche',
-                    nTimeNotif = 6000,
-                })
-                return nil
-            end
-            TriggerServerEvent("GTASuperette:RecevoirItem", quantityItems, button.idItem, button.nameItem, button.prixItem)
             CloseCreator()
         end
     end
 end
 
 function Back()
-	if backlock then
-		return
-	end
-	backlock = true
 	if superette.currentmenu == "main" then
 		CloseCreator()
 	elseif superette.currentmenu == "superettepersonnel" then

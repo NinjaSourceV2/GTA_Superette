@@ -1,5 +1,15 @@
 --||@SuperCoolNinja.||--
 
+
+--> Version de la Resource : 
+PerformHttpRequest("https://raw.githubusercontent.com/NinjaSourceV2/GTA_Superette/master/nMenuSuperette/fxmanifest.lua", function(errorCode, result, headers)
+	local version = GetResourceMetadata(GetCurrentResourceName(), 'resource_version', 0)
+
+	if string.find(tostring(result), version) == nil then
+		print("\n\r ^2[GTA_Superette]^1 La version que vous utilisé n'est plus a jours, veuillez télécharger la dernière version: ^3["..version .."]\n\r")
+	end
+end, "GET", "", "")
+
 RegisterServerEvent("GTASuperette:RecevoirItem")
 AddEventHandler("GTASuperette:RecevoirItem", function(quantityItems, idBtn, nameItem, prixItem)
 	local source = source

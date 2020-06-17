@@ -23,8 +23,8 @@ local superette = {
 			title = "SUPERETTE",
 			name = "main",
             buttons = { 
-				{name = "Pain ~g~ 5$", description = "",idItem = 13, nameItem = "Pain", prixItem = 5},
-                {name = "Eau ~g~ 5$", description = "",idItem = 14, nameItem = "Eau", prixItem = 5},
+				{name = "Pain ~g~ 5$", description = "",idItem = 11, nameItem = "Pain", prixItem = 5},
+                {name = "Eau ~g~ 5$", description = "",idItem = 12, nameItem = "Eau", prixItem = 5},
             }
     	},
   	}

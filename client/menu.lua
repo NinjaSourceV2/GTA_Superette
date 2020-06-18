@@ -10,9 +10,9 @@ local superette = {
 	selectedbutton = 0,
 	marker = { r = 0, g = 155, b = 255, a = 200, type = 1 },
 	menu = {
-		x = 0.9,
-		y = 0.26,
-		width = 0.2,
+		x = 0.8 + 0.07,
+		y = 0.05,
+		width = 0.2 + 0.05,
 		height = 0.04,
 		buttons = 10,
 		from = 1,
@@ -65,36 +65,6 @@ function drawMenuButton(button,x,y,selected)
 	DrawRect(x,y,menu.width,menu.height,0,0,0,150)
 		end
 	DrawText(x - menu.width/2 + 0.005, y - menu.height/2 + 0.0028)
-end
-
-function drawMenuInfo(text)
-	local menu = superette.menu
-	SetTextFont(menu.font)
-	SetTextProportional(0)
-	SetTextScale(0.45, 0.45)
-	SetTextColour(255, 255, 255, 255)
-	SetTextCentre(0)
-	SetTextEntry("STRING")
-	AddTextComponentString(text)
-	DrawRect(0.675, 0.95,0.65,0.050,0,0,0,150)
-	DrawText(0.365, 0.934)
-end
-
-function drawMenuRight(txt,x,y,selected)
-	local menu = superette.menu
-	SetTextFont(menu.font)
-	SetTextProportional(0)
-	SetTextScale(menu.scale, menu.scale)
-	SetTextRightJustify(1)
-	if selected then
-		SetTextColour(0, 0, 0, 255)
-	else
-		SetTextColour(255, 255, 255, 255)
-	end
-	SetTextCentre(0)
-	SetTextEntry("STRING")
-	AddTextComponentString(txt)
-	DrawText(x + menu.width/2 - 0.03, y - menu.height/2 + 0.0028)
 end
 
 function drawMenuTitle(txt,x,y)

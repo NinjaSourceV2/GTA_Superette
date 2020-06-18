@@ -18,10 +18,10 @@ couleurRectSelectMenu = --> Couleur de la barre qui s'affiche quand vous séléc
 ---> Couleur du rect au top du menu :
 couleurTopMenu = {}
 
-couleurTopMenu.r = 93
-couleurTopMenu.g = 166
-couleurTopMenu.b = 205
-couleurTopMenu.a = 155
+couleurTopMenu.r = 0
+couleurTopMenu.g = 0
+couleurTopMenu.b = 0
+couleurTopMenu.a = 255
 
 ---> Couleur du rect de séléction :
 couleurRectSelectMenu = {}

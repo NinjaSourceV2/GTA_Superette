@@ -1,7 +1,7 @@
 --||@SuperCoolNinja.||--
 
 --> Version de la Resource : 
-local LatestVersion = ''; CurrentVersion = '1.3'
+local LatestVersion = ''; CurrentVersion = '1.4'
 PerformHttpRequest('https://raw.githubusercontent.com/NinjaSourceV2/GTA_Superette/master/VERSION', function(Error, NewestVersion, Header)
     LatestVersion = NewestVersion
     if CurrentVersion ~= NewestVersion then
@@ -10,7 +10,7 @@ PerformHttpRequest('https://raw.githubusercontent.com/NinjaSourceV2/GTA_Superett
 end)
 
 RegisterServerEvent("GTASuperette:RecevoirItem")
-AddEventHandler("GTASuperette:RecevoirItem", function(quantityItems, idBtn, nameItem, prixItem)
+AddEventHandler("GTASuperette:RecevoirItem", function(quantityItems, nameItem, prixItem)
 	local source = source
 	local prixTotal = prixItem * tonumber(quantityItems)
 
@@ -18,7 +18,7 @@ AddEventHandler("GTASuperette:RecevoirItem", function(quantityItems, idBtn, name
 		local cash = data.argent_propre
 
 		if (tonumber(cash) >= prixTotal) then
-			TriggerClientEvent("GTASuperette:Achat", source, quantityItems, idBtn, nameItem)
+			TriggerClientEvent("GTASuperette:Achat", source, quantityItems, nameItem)
 			TriggerClientEvent('nMenuNotif:showNotification', source, " + "..quantityItems .. " ".. nameItem)
 			TriggerEvent('GTA:RetirerArgentPropre', source, tonumber(prixTotal))
 		else

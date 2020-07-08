@@ -23,8 +23,8 @@ local superette = {
 			title = "SUPERETTE",
 			name = "main",
             buttons = { 
-				{name = "Pain ~g~ 5$", description = "",idItem = 11, nameItem = "Pain", prixItem = 5},
-                {name = "Eau ~g~ 5$", description = "",idItem = 12, nameItem = "Eau", prixItem = 5},
+				{name = "Pain ~g~ 5$", description = "", nameItem = "Pain", prixItem = 5},
+                {name = "Eau ~g~ 5$", description = "", nameItem = "Eau", prixItem = 5},
             }
     	},
   	}
@@ -183,7 +183,8 @@ function ButtonSelected(button)
     local btn = button.name
 
     if this == "main" then
-        if btn == "Pain ~g~ 5$" then
+        if btn == "monItem" then
+        else
             local quantityItems = KeyboardInput("", "", 2)
             if tonumber(quantityItems) == nil then
                 exports.nCoreGTA:nNotificationMain({
@@ -194,7 +195,7 @@ function ButtonSelected(button)
                 return nil
             end
 
-            if tonumber(quantityItems) >= 20 then
+            if tonumber(quantityItems) > 10 then
                 exports.nCoreGTA:nNotificationMain({
                     text = "Somme beaucoup trop grande !",
                     type = 'basGauche',
@@ -202,28 +203,7 @@ function ButtonSelected(button)
                 })
                 return nil
             end
-            TriggerServerEvent("GTASuperette:RecevoirItem", quantityItems, button.idItem, button.nameItem, button.prixItem)
-            CloseCreator()
-        elseif btn == "Eau ~g~ 5$" then
-            local quantityItems = KeyboardInput("", "", 2)
-            if tonumber(quantityItems) == nil then
-                exports.nCoreGTA:nNotificationMain({
-                    text = "Veuillez inserer un nombre correct !",
-                    type = 'basGauche',
-                    nTimeNotif = 6000,
-                })
-                return nil
-            end
-
-            if tonumber(quantityItems) >= 20 then
-                exports.nCoreGTA:nNotificationMain({
-                    text = "Somme beaucoup trop grande !",
-                    type = 'basGauche',
-                    nTimeNotif = 6000,
-                })
-                return nil
-            end
-            TriggerServerEvent("GTASuperette:RecevoirItem", quantityItems, button.idItem,  button.nameItem, button.prixItem)
+            TriggerServerEvent("GTASuperette:RecevoirItem", quantityItems, button.nameItem, button.prixItem)
             CloseCreator()
         end
     end

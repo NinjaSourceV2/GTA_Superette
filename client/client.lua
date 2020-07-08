@@ -1,7 +1,7 @@
 --> Event : 
 RegisterNetEvent("GTASuperette:Achat")
-AddEventHandler("GTASuperette:Achat",  function(quantityItems, idBtn, nameItem)
-    TriggerEvent("player:receiveItem", idBtn, quantityItems)
+AddEventHandler("GTASuperette:Achat",  function(quantityItems, nameItem)
+    TriggerEvent("player:receiveItem", nameItem, quantityItems)
 
     for shop = 1, #Config.Locations do
         local sPed = Config.Locations[shop]["sPed"]
@@ -13,7 +13,7 @@ AddEventHandler("GTASuperette:Achat",  function(quantityItems, idBtn, nameItem)
 end)
 
 RegisterNetEvent("GTASuperette:AchatFail")
-AddEventHandler("GTASuperette:AchatFail",  function(quantityItems, idBtn, nameItem)
+AddEventHandler("GTASuperette:AchatFail",  function()
     for shop = 1, #Config.Locations do
         local sPed = Config.Locations[shop]["sPed"]
         PlayAmbientSpeech2(sPed["entity"], "GENERIC_BYE", "SPEECH_PARAMS_FORCE_SHOUTED") --> Sert a faire parler le ped plus l'animer.

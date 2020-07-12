@@ -1,7 +1,5 @@
-fx_version 'bodacious'
+fx_version 'adamant'
 game 'gta5'
-
-dependencies {'ghmattimysql'}
 
 server_script 'server/server.lua'
 client_scripts {

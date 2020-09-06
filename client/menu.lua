@@ -25,6 +25,7 @@ local superette = {
             buttons = { 
 				{name = "Pain ~g~ 5$", description = "", nameItem = "Pain", prixItem = 5},
                 {name = "Eau ~g~ 5$", description = "", nameItem = "Eau", prixItem = 5},
+                {name = "Téléphone ~g~ 5$", description = "", nameItem = "Téléphone", prixItem = 5},
             }
     	},
   	}

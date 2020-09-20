@@ -1,6 +1,9 @@
 # GTA_Superette
 Simple superette avec npc.
 
+## Screen :
+![Superette](https://cdn.discordapp.com/attachments/554479498721099787/757309573861474466/Capture_decran_2020-09-20_203603.png)
+
 
 ### Requirements
 * Ninja Source
@@ -14,7 +17,7 @@ Simple superette avec npc.
 ## Features
 - RageUIV2
 - Superette configurable items, prix, pos, ped.
- 
+
 
 ## Tuto
 - Tout se trouve dans le fichier config.lua vous pourrez modifier les items, prix, position des superette.

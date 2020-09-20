@@ -87,6 +87,8 @@ Citizen.CreateThread(function()
 
         --> SubMenu Mutlimédia : 
         RageUI.IsVisible(subMutlimedia, function()
+
+
             for shop = 1, #Config.Locations do
                 local item = Config.Locations[shop]["Food"]
                 local sPed = Config.Locations[shop]["sPed"]
@@ -142,7 +144,12 @@ Citizen.CreateThread(function()
                     RageUI.Visible(mainMenu, not RageUI.Visible(mainMenu))
                end
             end
-       end
+        end
+
+        if RageUI.Visible(mainMenu) or RageUI.Visible(subFood) or RageUI.Visible(subBoissons) or RageUI.Visible(subMutlimedia) == true then 
+            DisableControlAction(0, 140, true) --> DESACTIVER LA TOUCHE POUR PUNCH
+            DisableControlAction(0, 172,true) --DESACTIVE CONTROLL HAUT  
+        end
        Citizen.Wait(Duree)
    end
 end)

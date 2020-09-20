@@ -1,7 +1,7 @@
 --||@SuperCoolNinja.||--
 
 --> Version de la Resource : 
-local LatestVersion = ''; CurrentVersion = '1.6'
+local LatestVersion = ''; CurrentVersion = '1.7'
 PerformHttpRequest('https://raw.githubusercontent.com/NinjaSourceV2/GTA_Superette/master/VERSION', function(Error, NewestVersion, Header)
     LatestVersion = NewestVersion
     if CurrentVersion ~= NewestVersion then

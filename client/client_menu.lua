@@ -6,8 +6,6 @@ local prix = nil
 local itemName = " "
 local Duree = 0
 
---DisableControlAction(0, 140, true) --> DESACTIVER LA TOUCHE POUR PUNCH
---DisableControlAction(0, 172,true) --DESACTIVE CONTROLL HAUT
 Citizen.CreateThread(function()
     while (true) do
         RageUI.IsVisible(mainMenu, function()
@@ -24,7 +22,7 @@ Citizen.CreateThread(function()
                 local plyCoords = GetEntityCoords(GetPlayerPed(-1), false)
                 local dist = GetDistanceBetweenCoords(plyCoords, sPed["x"], sPed["y"], sPed["z"], true)
 
-                if dist <= 2.0 then
+                if dist <= 5.0 then
                     Duree = 0
                     for _, v in pairs(item.itemNameSnack) do
                         itemName = v
@@ -36,11 +34,7 @@ Citizen.CreateThread(function()
                         onSelected = function()
                             local quantityItems =  InputNombre("Montant : ")
                             if tonumber(quantityItems) == nil then
-                                exports.nCoreGTA:nNotificationMain({
-                                    text = "Veuillez inserer un nombre correct !",
-                                    type = 'basGauche',
-                                    nTimeNotif = 6000,
-                                })
+                                exports.nCoreGTA:ShowNotification("Veuillez inserer un nombre correct !")
                                 return nil
                             end
                 
@@ -59,7 +53,7 @@ Citizen.CreateThread(function()
                 local plyCoords = GetEntityCoords(GetPlayerPed(-1), false)
                 local dist = GetDistanceBetweenCoords(plyCoords, sPed["x"], sPed["y"], sPed["z"], true)
 
-                if dist <= 2.0 then
+                if dist <= 5.0 then
                     for _, v in pairs(item.itemNameBoissons) do
                         itemName = v
                         for _, j in pairs(item.prix) do 
@@ -70,11 +64,7 @@ Citizen.CreateThread(function()
                         onSelected = function()
                             local quantityItems =  InputNombre("Montant : ")
                             if tonumber(quantityItems) == nil then
-                                exports.nCoreGTA:nNotificationMain({
-                                    text = "Veuillez inserer un nombre correct !",
-                                    type = 'basGauche',
-                                    nTimeNotif = 6000,
-                                })
+                                exports.nCoreGTA:ShowNotification("Veuillez inserer un nombre correct !")
                                 return nil
                             end
                 
@@ -87,15 +77,13 @@ Citizen.CreateThread(function()
 
         --> SubMenu Mutlimédia : 
         RageUI.IsVisible(subMutlimedia, function()
-
-
             for shop = 1, #Config.Locations do
                 local item = Config.Locations[shop]["Food"]
                 local sPed = Config.Locations[shop]["sPed"]
                 local plyCoords = GetEntityCoords(GetPlayerPed(-1), false)
                 local dist = GetDistanceBetweenCoords(plyCoords, sPed["x"], sPed["y"], sPed["z"], true)
 
-                if dist <= 2.0 then
+                if dist <= 5.0 then
                     for _, v in pairs(item.itemNameMultimedia) do
                         itemName = v
                         for _, j in pairs(item.prix) do 
@@ -106,11 +94,7 @@ Citizen.CreateThread(function()
                         onSelected = function()
                             local quantityItems =  InputNombre("Montant : ")
                             if tonumber(quantityItems) == nil then
-                                exports.nCoreGTA:nNotificationMain({
-                                    text = "Veuillez inserer un nombre correct !",
-                                    type = 'basGauche',
-                                    nTimeNotif = 6000,
-                                })
+                                exports.nCoreGTA:ShowNotification("Veuillez inserer un nombre correct !")
                                 return nil
                             end
                 
@@ -135,12 +119,12 @@ Citizen.CreateThread(function()
             if dist <= 2.0 then
                 Duree = 0
                 if GetLastInputMethod(0) then
-                   Ninja_Core__DisplayHelpAlert("~INPUT_TALK~ pour ~b~intéragir ~w~ avec le ~g~vendeur")
-               else
-                   Ninja_Core__DisplayHelpAlert("~INPUT_CELLPHONE_RIGHT~ pour ~b~intéragir ~w~ avec le ~g~vendeur")
-               end
+                    Ninja_Core__DisplayHelpAlert("~INPUT_PICKUP~ pour ~b~intéragir")
+                else
+                    Ninja_Core__DisplayHelpAlert("~INPUT_CELLPHONE_EXTRA_OPTION~ pour ~b~intéragir")
+                end
            
-               if (IsControlJustReleased(0, 54) or IsControlJustReleased(0, 175)) then 
+               if (IsControlJustReleased(0, 38) or IsControlJustReleased(0, 214)) then 
                     RageUI.Visible(mainMenu, not RageUI.Visible(mainMenu))
                end
             end

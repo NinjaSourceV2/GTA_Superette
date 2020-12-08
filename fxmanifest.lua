@@ -1,11 +1,7 @@
 fx_version 'cerulean'
 game 'gta5'
 
-dependencies {'ghmattimysql'}
-
-server_scripts {
-    'server/server_main.lua'
-}
+server_script 'server/server_main.lua'
 
 client_scripts {
     "src/RMenu.lua",

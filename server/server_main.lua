@@ -1,7 +1,7 @@
 --||@SuperCoolNinja.||--
 
 --> Version de la Resource : 
-local LatestVersion = ''; CurrentVersion = '1.9'
+local LatestVersion = ''; CurrentVersion = '2.0'
 PerformHttpRequest('https://raw.githubusercontent.com/NinjaSourceV2/GTA_Superette/master/VERSION', function(Error, NewestVersion, Header)
     LatestVersion = NewestVersion
     if CurrentVersion ~= NewestVersion then
@@ -14,8 +14,8 @@ AddEventHandler("GTASuperette:RecevoirItem", function(quantityItems, nameItem, p
 	local source = source
 	local prixTotal = prixItem * tonumber(quantityItems)
 
-	TriggerEvent('GTA:GetInfoJoueurs', source, function(data)
-		local cash = data.argent_propre
+	TriggerEvent('GTA:GetUserQtyItem', source, "Argent-Propre", function(argentPropreQty)
+		local cash = argentPropreQty
 
 		if (tonumber(cash) >= prixTotal) then
 			TriggerClientEvent("GTASuperette:Achat", source, quantityItems, nameItem)

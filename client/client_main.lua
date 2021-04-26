@@ -1,7 +1,7 @@
 --> Event : 
 RegisterNetEvent("GTASuperette:Achat")
-AddEventHandler("GTASuperette:Achat",  function(quantityItems, nameItem)
-    TriggerEvent("player:receiveItem", nameItem, quantityItems)
+AddEventHandler("GTASuperette:Achat",  function(quantityItems, nameItem, max_qty)
+    TriggerEvent("player:receiveItem", nameItem, quantityItems, max_qty)
 
     for shop = 1, #Config.Locations do
         local sPed = Config.Locations[shop]["sPed"]

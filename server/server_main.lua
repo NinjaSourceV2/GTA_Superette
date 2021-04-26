@@ -18,6 +18,8 @@ AddEventHandler("GTASuperette:RecevoirItem", function(quantityItems, nameItem, p
 		local cash = argentPropreQty
 		if (tonumber(cash) >= prixTotal) then
 			MySQL.Async.fetchAll("SELECT * FROM items WHERE libelle = @libelle", { ['@libelle'] = nameItem}, function(res)
+				print(nameItem)
+				print(res[1].max_qty)
 				if(res[1]) then
 					TriggerClientEvent("GTASuperette:Achat", source, quantityItems, nameItem, res[1].max_qty)
 					TriggerClientEvent('nMenuNotif:showNotification', source, " + "..quantityItems .. " ".. nameItem)

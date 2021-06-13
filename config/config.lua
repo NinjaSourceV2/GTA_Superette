@@ -5,9 +5,9 @@ Config = {
                 ["x"] = 24.44, ["y"] = -1347.34, ["z"] = 28.5, ["h"] = 270.82
             },
             ["Food"] = {
-                itemNameSnack = {"Pain"},
-                itemNameBoissons = {"Eau","Soda"},
-                itemNameMultimedia = {"Téléphone"},
+                itemNameSnack = {"pain"},
+                itemNameBoissons = {"eau","soda"},
+                itemNameMultimedia = {"phone"},
                 prix = {
                     Pain = 3, 
                     Eau = 2,
@@ -22,9 +22,9 @@ Config = {
                 ["x"] = -47.38, ["y"] = -1758.7, ["z"] = 28.44, ["h"] = 48.84
             },
             ["Food"] = {
-                itemNameSnack = {"Pain"},
-                itemNameBoissons = {"Eau"},
-                itemNameMultimedia = {"Téléphone"},
+                itemNameSnack = {"pain"},
+                itemNameBoissons = {"eau"},
+                itemNameMultimedia = {"phone"},
                 prix = {
                     Pain = 3, 
                     Eau = 2,

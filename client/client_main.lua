@@ -1,7 +1,7 @@
 --> Event : 
 RegisterNetEvent("GTASuperette:Achat")
-AddEventHandler("GTASuperette:Achat",  function(quantityItems, nameItem, max_qty)
-    TriggerEvent("player:receiveItem", nameItem, quantityItems, max_qty)
+AddEventHandler("GTASuperette:Achat",  function(quantityItems, nameItem)
+    TriggerEvent("GTA_Inventaire:AjouterItem", nameItem, quantityItems)
 
     for shop = 1, #Config.Locations do
         local sPed = Config.Locations[shop]["sPed"]
@@ -9,7 +9,6 @@ AddEventHandler("GTASuperette:Achat",  function(quantityItems, nameItem, max_qty
     end
 
     PlaySoundFrontend(-1, "Hack_Success", "DLC_HEIST_BIOLAB_PREP_HACKING_SOUNDS", false)
-    exports.nCoreGTA:Ninja_Core_PedsText("~b~Vendeur ~w~: ~g~Merci !", 1000)
 end)
 
 RegisterNetEvent("GTASuperette:AchatFail")
@@ -20,7 +19,6 @@ AddEventHandler("GTASuperette:AchatFail",  function()
     end
     
     PlaySoundFrontend(-1, "Hack_Failed", "DLC_HEIST_BIOLAB_PREP_HACKING_SOUNDS", false)
-    exports.nCoreGTA:Ninja_Core_PedsText("~b~Vendeur ~w~: ~r~A bientôt !", 1000)
 end)
 
 
